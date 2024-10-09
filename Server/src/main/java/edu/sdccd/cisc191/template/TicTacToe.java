@@ -71,13 +71,14 @@ public class TicTacToe extends Application{
         });
         gameOver = false;
 
+        GameDataManager manager = new GameDataManager(this);
         // SAVE GAME BUTTON
         Button saveButton = new Button("Save Game");
-        saveButton.setOnAction(event -> saveGame());
+        saveButton.setOnAction(event -> manager.saveGame());
 
         // LOAD GAME BUTTON
         Button loadButton = new Button("Load Game");
-        loadButton.setOnAction(event -> loadGame());
+        loadButton.setOnAction(event -> manager.loadGame());
 
         GridPane grid = new GridPane();
         BorderPane borderPane = new BorderPane();
@@ -87,8 +88,35 @@ public class TicTacToe extends Application{
         x = !x;
 
         updateHeader();
+        createGameGrid(grid);
+        setScene(primayStage, borderPane);
+    } // end start();
 
+    /**
+     * Sets the scene
+     * @param primaryStage the primary stage of the game
+     * @param borderPane the borderpane layout
+     */
+    private void setScene(Stage primaryStage, BorderPane borderPane)
+    {
+        Scene scene = new Scene(borderPane,470, 490);
 
+        // Sets the title of the game window
+        primaryStage.setTitle("Tic -  Tac - Toe");
+
+        // Set the scene of the primary stage to the one containing the buttons
+        primaryStage.setScene(scene);
+
+        // Show the game window
+        primaryStage.show();
+    }
+
+    /**
+     * Creates the 3x3 tic tac toe grid.
+     * @param grid a GridPane layout used to display the buttons
+     */
+    private void createGameGrid(GridPane grid)
+    {
         // nested for loop to create a 3X3 grid of buttons
         for(int row = 0; row < 3; row++){
             for(int column = 0; column < 3; column++){
@@ -113,79 +141,10 @@ public class TicTacToe extends Application{
                 });
                 grid.add(button,column,row);
                 buttons[row][column]=button;
-
-
             }
-        }
-
-        Scene scene = new Scene(borderPane,470, 490);
-
-        // Sets the title of the game window
-        primayStage.setTitle("Tic -  Tac - Toe");
-
-        // Set the scene of the primary stage to the one containing the buttons
-        primayStage.setScene(scene);
-
-        // Show the game window
-        primayStage.show();
-
-
-    } // end start();
-
-    /** Method for saving the game to a file
-     *
-     */
-
-    private void saveGame() {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("tic_tac_toe_save.dat"))) {
-            // Save the board state
-            String[][] boardState = new String[3][3];
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    boardState[i][j] = buttons[i][j].getText();
-                }
-            }
-            out.writeObject(boardState);
-
-            out.writeBoolean(x);  // Save whose turn it is
-            out.writeInt(Xwins);      // Save X's score
-            out.writeInt(Owins);      // Save O's score
-            System.out.println("Game saved successfully.");
-        } catch (IOException e) {
-            System.out.println("Error saving the game: " + e.getMessage());
-        }
-    }
-
-    /** Method for loading in the saved game
-     *
-     */
-
-    private void loadGame() {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("tic_tac_toe_save.dat"))) {
-            // Load the board state
-            String[][] boardState = (String[][]) in.readObject();
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    buttons[i][j].setText(boardState[i][j]);
-                }
-            }
-            x = in.readBoolean();  // Load whose turn it is
-            Xwins = in.readInt();      // Load X's score
-            Owins = in.readInt();      // Load O's score
-            // Calling the updateHeader method
-            updateHeader();
-            Check();
-
-            System.out.println("Game loaded successfully!.");
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error loading the game: " + e.getMessage());
         }
 
     }
-
-    /**  Method for restarting the game
-     *
-     */
 
     public void restart() {
         // iterating through each row and column
@@ -238,7 +197,7 @@ public class TicTacToe extends Application{
             for (int col = 0; col < 3; col++) {
                 // Disable the button at the current row and column which makes it
                 // unclickable
-            buttons[row][col].setDisable(true);
+                buttons[row][col].setDisable(true);
             }
         }
     }
@@ -348,8 +307,35 @@ public class TicTacToe extends Application{
     }
 
 
+    // Getter methods to access game state from GameFileManager
+    public Button[][] getButtons() {
+        return buttons;
+    }
 
+    public boolean getTurn() {
+        return x;
+    }
 
+    public int getXWins() {
+        return Xwins;
+    }
+
+    public int getOWins() {
+        return Owins;
+    }
+
+    public void setTurn(boolean turn) {
+        this.x = turn;
+    }
+
+    public void setXWins(int xWins) {
+        this.Xwins = xWins;
+    }
+
+    public void setOWins(int oWins) {
+        this.Owins = oWins;
+    }
 }
+
 
 
