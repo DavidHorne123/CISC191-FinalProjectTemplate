@@ -270,6 +270,7 @@ public class TicTacToe extends Application{
                 }
                 // prints the result
                 System.out.println(getCurrentTurn()+ " wins");
+                new GameNotification("Game Over", getCurrentTurn() + " wins!");
                 return;
             }
         }
@@ -293,6 +294,7 @@ public class TicTacToe extends Application{
                 }
                 // Prints the winner
                 System.out.println(getCurrentTurn()+ " wins");
+                new GameNotification("Game Over", getCurrentTurn() + " wins!");
                 return;
             }
         }
@@ -311,6 +313,7 @@ public class TicTacToe extends Application{
             }
             // Prints the winner
             System.out.println(getCurrentTurn()+ " wins");
+            new GameNotification("Game Over", getCurrentTurn() + " wins!");
             return;
         }
 
@@ -326,6 +329,7 @@ public class TicTacToe extends Application{
             }
             // Prints the winner
             System.out.println(getCurrentTurn()+ " wins");
+            new GameNotification("Game Over", getCurrentTurn() + " wins!");
             return;
         }
 
@@ -343,6 +347,7 @@ public class TicTacToe extends Application{
         // if all buttons are filled, it means no empty spots remain
         if(count==9){
             System.out.println("tie");
+            new GameNotification("Game Over", "It's a tie!");
             disableBoard();
         }
     }
