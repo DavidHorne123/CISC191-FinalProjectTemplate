@@ -54,9 +54,13 @@ public class Main extends Application
         }
     }
 
-
+    /**
+     * The method sends a "SHUTDOWN" requests to a server, waits for a response
+     * handles any exceptions that may occur
+     */
     private static void sendShutdownRequest()
     {
+        // Try catch block that makes a connection to the server
         try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
              ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
              ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream()))

@@ -10,8 +10,12 @@ import java.util.Random;
 
 public class SearchGame
 {
+    // Defines a constant maximum value for the money reward
+    // Capped the value at 200
     private static final int MAX_MONEY_REWARD = 200;
+    // Declares a variable randomGenerator object
     private RandomClass randomGenerator = new RandomClass();
+    // Declares a variable bamkAccount object
     private BankAccount bankAccount = new BankAccount();
 
     /**
@@ -27,17 +31,28 @@ public class SearchGame
     }
 
     /**
+     * Method uses a random number generator to decide if the player gets an item (31% chance)
+     * or money (69%) chance
+     * If an item is rewarded, it is then randomly selected from a loot table and added to the player's
+     * inventory
      * Determines the reward based on the game's outcome.
      * @return a String message indicating the reward.
      */
     public String pickRandomReward()
     {
         Random generator = new Random();
+        // Generates a random integer between 0 (inclusive) and 99
         int number = generator.nextInt(100);
+        // If the random number is 30 or less, the player will receive an item as a reward
         if (number <= 30)
         {
+            // A loot table is retrieved from a ItemLootTable object
             Item[] itemLootTable = new ItemLootTable().getItemLootTable();
+            // Then a random item from the loot table is selected by using
+            // generator.nextInt(itemLootTable.kength which picks a ranom index from the loot table array
             Item rewardItem = itemLootTable[generator.nextInt(itemLootTable.length)];
+            // The player's inventory is then accessed with PlayerInventory.getInstance
+            // and them the item gets added to the player's inventory
             PlayerInventory inventory = PlayerInventory.getInstance();
             inventory.addItem(rewardItem);
             return "You found a " + rewardItem.getItemName() + "!";
