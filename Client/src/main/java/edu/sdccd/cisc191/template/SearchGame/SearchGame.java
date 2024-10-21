@@ -46,6 +46,7 @@ public class SearchGame
         // If the random number is 30 or less, the player will receive an item as a reward
         if (number <= 30)
         {
+            // Creating an itemLootTable array
             // A loot table is retrieved from a ItemLootTable object
             Item[] itemLootTable = new ItemLootTable().getItemLootTable();
             // Then a random item from the loot table is selected by using
