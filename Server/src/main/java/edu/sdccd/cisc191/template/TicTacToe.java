@@ -373,8 +373,10 @@ public class TicTacToe<T> extends Application{
                 disableBoard();
                 if(getCurrentTurn().equals("X")){
                     Xwins++;
+                    actionLog("X won");
                 }else{
                     Owins++;
+                    actionLog("O won");
                 }
                 // Prints the winner
                 System.out.println(getCurrentTurn()+ " wins");
@@ -394,8 +396,10 @@ public class TicTacToe<T> extends Application{
             if(getCurrentTurn().equals("X")){
                 // Updates the win count
                 Xwins++;
+                actionLog("X won");
             }else{
                 Owins++;
+                actionLog("O won");
             }
             // Prints the winner
             System.out.println(getCurrentTurn()+ " wins");
@@ -411,8 +415,10 @@ public class TicTacToe<T> extends Application{
             disableBoard();
             if(getCurrentTurn().equals("X")){
                 Xwins++;
+                actionLog("X won");
             }else{
                 Owins++;
+                actionLog("O won");
             }
             // Prints the winner
             System.out.println(getCurrentTurn()+ " wins");
